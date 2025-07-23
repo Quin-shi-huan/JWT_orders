@@ -1,8 +1,7 @@
-
 from sqlite3 import Connection
 from datetime import datetime
-
-class UserRepository:
+from src.models.interfaces.user_repository import UserRepositoryInterface
+class UserRepository(UserRepositoryInterface):
     def __init__(self, conn: Connection) -> None:
         self.__conn = conn
 
@@ -30,7 +29,7 @@ class UserRepository:
         )
         self.__conn.commit()
 
-    def get_user_orders(self,  username: str):
+    def get_user_orders(self,  username: str) -> tuple[int, str, str]:
         cursor = self.__conn.cursor()
         cursor.execute(
             '''
